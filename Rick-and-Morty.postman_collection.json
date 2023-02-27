@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "094889d9-18ce-45ce-9514-8f2d52d490a7",
+		"name": "Rick-and-Morty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24995711"
+	},
+	"item": [
+		{
+			"name": "Personajes",
+			"item": [
+				{
+					"name": "Lista de personajes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El personaje con id 2 coincide con el nombre\", ()=> { \r",
+									"    var jsonData = pm.response.json();\r",
+									"    //console.log(jsonData)\r",
+									"    var personaje=jsonData.results.find(x => x.id == 2);\r",
+									"    //console.log(personaje)\r",
+									"    pm.expect(personaje.name).to.equal(\"Morty Smith\"); \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}/{{path_character}}",
+							"host": [
+								"{{URL_BASE}}"
+							],
+							"path": [
+								"{{path_character}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista de personaje por página",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"El personaje con id 781 coincide con el nombre\", ()=> { \r",
+									"    var jsonData = pm.response.json();\r",
+									"    var personaje=jsonData.results.find(x => x.id == 781);\r",
+									"    pm.expect(personaje.name).to.equal(\"Rick's Garage\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}/{{path_character}}/?page=40",
+							"host": [
+								"{{URL_BASE}}"
+							],
+							"path": [
+								"{{path_character}}",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "40"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Personaje por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Summer Smith\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}/{{path_character}}/{{id_character}}",
+							"host": [
+								"{{URL_BASE}}"
+							],
+							"path": [
+								"{{path_character}}",
+								"{{id_character}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Personaje por varios ID's",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.test(\"Validar arreglo vacio\", function () {\r",
+									"    pm.expect(data.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_BASE}}/{{path_character}}/827,828,829",
+							"host": [
+								"{{URL_BASE}}"
+							],
+							"path": [
+								"{{path_character}}",
+								"827,828,829"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
